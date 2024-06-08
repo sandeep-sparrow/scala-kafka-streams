@@ -1,6 +1,11 @@
 package com.rockthejvm
 
-import java.io.ObjectInputFilter.Status
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.auto._
+import io.circe.parser._
+import io.circe.syntax._
+import org.apache.kafka.common.serialization.Serde
+import org.apache.kafka.streams.scala.serialization.Serdes
 
 object KafkaStreams {
 
@@ -39,6 +44,18 @@ object KafkaStreams {
     }
   }
 
+  // source = emits elements of a particular types
+  // flow = transforms elements along the way (e.g: map)
+  // sink = "injects" elements
+
+  implicit def serde[A >: Null : Decoder : Encoder]: Serde[A] = {
+    val serializer = (a: A) => a.asJson.noSpaces.getBytes()
+    val deserializer = (bytes: Array[Byte]) => {
+      val string = new String(bytes)
+      decode[A](string).toOption
+    }
+    Serdes.fromFn[A](serializer, deserializer)
+  }
   def main(args: Array[String]): Unit = {
 
   }
