@@ -5,7 +5,7 @@ import io.circe.{Decoder, Encoder}
 import io.circe.parser._
 import io.circe.syntax._
 import org.apache.kafka.common.serialization.Serde
-import org.apache.kafka.streams.StreamsConfig
+import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
 import org.apache.kafka.streams.kstream.{GlobalKTable, JoinWindows}
 import org.apache.kafka.streams.scala.StreamsBuilder
 import org.apache.kafka.streams.scala.kstream.{KStream, KTable}
@@ -129,5 +129,8 @@ object KafkaStreams {
     props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.stringSerde.getClass)
 
     println(topology.describe())
+
+    val application = new KafkaStreams(topology, props)
+    application.start()
   }
 }
