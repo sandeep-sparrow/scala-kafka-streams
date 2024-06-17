@@ -1,0 +1,12 @@
+profile1, {"profile":"profile1","amount":10}
+profile2, {"profile":"profile2","amount":100}
+profile3, {"profile":"profile3","amount":40}
+
+Sandeep,profile1
+Daniel,profile2
+
+Daniel, {"orderId":"order1", "user": "Daniel", "products":["iphone 13", "MacBook pro 15"], "amount": 4000.0}
+Sandeep, {"orderId":"order2", "user": "Sandeep", "products":["iphone 15", "MacBook pro m3 pro 16"], "amount": 6000.0}
+
+order1: {"orderId":"order1", "status": "PAID"}
+order2: {"orderId":"order2", "status": "PENDING"}
